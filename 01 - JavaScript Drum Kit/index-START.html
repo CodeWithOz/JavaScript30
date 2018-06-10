@@ -77,9 +77,16 @@
   /* ***************************
     WES' SOLUTION
   *************************** */
-  window.addEventListener('keydown', function(event) {
-    
-  });
+  window.addEventListener('keydown', playSound);
+
+  function playSound(event) {
+    // get matching audio element
+    const audio = document.querySelector(`audio[data-key="${event.keyCode}"]`);
+    if (!audio) return;
+    // set audio to always play from the beginning
+    audio.currentTime = 0;
+    audio.play();
+  }
 </script>
 
 
