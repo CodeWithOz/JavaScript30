@@ -74,10 +74,18 @@
     const secondHand = document.querySelector('.second-hand');
     const minuteHand = document.querySelector('.min-hand');
     const hourHand = document.querySelector('.hour-hand');
+
+    // have an outer counter
+    let secCounter = 0;
+    let minCounter = 0;
+    let hourCounter = 0;
     function setDate() {
       const now = new Date();
       const seconds = now.getSeconds();
-      const secondsDegrees = ((seconds / 60) * 360) + 90;
+      // increment the counter by 60 only when the clock hits 0
+      if (seconds === 0) secCounter += 60;
+      // set the value needed to current time + that counter
+      const secondsDegrees = (((seconds + secCounter) / 60) * 360) + 90;
       secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
 
       const minutes = now.getMinutes();
