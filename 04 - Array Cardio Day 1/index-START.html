@@ -84,6 +84,13 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    // this is my solution
+    people.sort((person1, person2) => {
+      const lastName1 = person1.split(',')[0].toUpperCase();
+      const lastName2 = person2.split(',')[0].toUpperCase();
+      return lastName1 < lastName2 ? -1 : 1;
+    });
+    console.table(people);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
