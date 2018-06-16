@@ -102,7 +102,18 @@
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
+    // this is my solution
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    data.sort();
+    const totals = {};
+    data.forEach(datum => {
+      if (!totals.hasOwnProperty(datum)) {
+        totals[datum] = 1;
+      } else {
+        totals[datum]++;
+      }
+    });
+    console.table(totals);
 
   </script>
 </body>
