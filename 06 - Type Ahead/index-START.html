@@ -37,7 +37,7 @@ fetch(endpoint)
   throw new Error('Request failed!');
 }, networkError => console.log(networkError.message))
 .then(jsonResponse => {
-  console.log(jsonResponse);
+  cities = jsonResponse;
 });
 // add an event listener for the keydown and change events
   // populate the list (i.e. add list items) based on matches with the
