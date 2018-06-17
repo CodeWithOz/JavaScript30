@@ -137,6 +137,16 @@
     function toggleOpen() {
       this.classList.toggle('open');
     }
+
+    panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
+
+    function toggleActive(event) {
+      // the transition also alters font-size
+      // so focus only on flex (called flex-grow on some browsers)
+      if (event.propertyName.includes('flex')) {
+        this.classList.toggle('open-active');
+      }
+    }
   </script>
 
 
