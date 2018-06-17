@@ -41,7 +41,8 @@ fetch(endpoint)
 });
 
 // add an event listener for the keydown and change events
-window.addEventListener('keyup', event => {
+const input = document.querySelector('input');
+input.addEventListener('keyup', event => {
   console.log(event.key);
   // populate the list (i.e. add list items) based on matches with the
   // city names
