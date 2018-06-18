@@ -45,27 +45,42 @@ fetch(endpoint)
     // get the current content of the input field
     const value = event.target.value;
     let listItems = '';
-    cities.forEach(city => {
-      if (city.city.includes(value) || city.state.includes(value)) {
-        listItems += `<li>${city.city}, ${city.state}<span class="population">${city.population}</span></li>`;
+    cities.forEach(cityObj => {
+      const rgx = new RegExp(value, 'gi');
+      const city = formatString(cityObj.city);
+
+      // replace matched text with highlighted matched text
+      function formatString(text) {
+        return text.replace(rgx, match => {
+          return `<span class="hl">${match}</span>`;
+        });
       }
-    })
-    document.querySelector('ul').innerHTML = listItems;
-    // ensure that the matching letters are highlighted in yellow
-      // use the `replace` method of strings
-        // call `replace` with the city as the string to replace
-        // do the same for state
-      // if either result does not match the original
-        // format the population
+
+      const state = formatString(cityObj.state);
+      if (city !== cityObj.city || state !== cityObj.state) {
+        // format the population with thousands separator
+        const origPop = String(cityObj.population);
+        let population = '';
+        for (
+          let counter = origPop.length - 1, reversedCounter;
+          counter >= 0;
+          counter--
+        ) {
+          reversedCounter = origPop.length - counter - 1;
+          if (reversedCounter > 0 && reversedCounter % 3 === 0) {
+            population = ',' + population;
+          }
+          // prepend corresponding character from original population string
+          population = origPop[counter] + population;
+        }
+
         // append city, state and population to listItems variable
-    // ensure that population is formatted with thousands separator
-      // convert population to string
-      // initialize result population empty string
-      // initialize loop counter at length - 1
-      // loop through the length decrementing the counter
-      // at each stage
-        // add a comma if it's passed the third
-        // add the character at the position to the result
+        listItems += `<li><span>${city}, ${state}</span><span class="population">${population}</span></li>`;
+      }
+    });
+
+    // replace list with matching items
+    document.querySelector('ul').innerHTML = listItems;
   });
 });
 
