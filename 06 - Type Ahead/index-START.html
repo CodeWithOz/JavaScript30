@@ -38,20 +38,21 @@ fetch(endpoint)
 }, networkError => console.log(networkError.message))
 .then(jsonResponse => {
   cities = jsonResponse;
-});
 
-// add an event listener for the keydown and change events
-const input = document.querySelector('input');
-input.addEventListener('keyup', event => {
-  console.log(event.key);
-  // populate the list (i.e. add list items) based on matches with the
-  // city names
-    // TODO:
-      // get the current content of the input field
-      // loop over the cities checking for matches in city and state names
-      // for each match, highlight the matching text and display it as
-      // a new list item, showing city and state names and population
-  // ensure that the matching letters are highlighted in yellow
+  // add an event listener for the keydown and change events
+  const input = document.querySelector('input');
+  input.addEventListener('keyup', event => {
+    // get the current content of the input field
+    const value = event.target.value;
+    let listItems = '';
+    cities.forEach(city => {
+      if (city.city.includes(value) || city.state.includes(value)) {
+        listItems += `<li>${city.city}, ${city.state}<span class="population">${city.population}</span></li>`;
+      }
+    })
+    document.querySelector('ul').innerHTML = listItems;
+    // ensure that the matching letters are highlighted in yellow
+  });
 });
 
 </script>
