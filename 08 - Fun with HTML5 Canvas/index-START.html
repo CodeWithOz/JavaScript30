@@ -23,6 +23,15 @@
   let isDrawing = false;
   let lastX = 0;
   let lastY = 0;
+
+  canvas.addEventListener('mousedown', () => isDrawing = true);
+  canvas.addEventListener('mouseup', () => isDrawing = false);
+  canvas.addEventListener('mouseleave', () => isDrawing = false);
+  canvas.addEventListener('mousemove', draw);
+
+  function draw(event) {
+    
+  }
 </script>
 
 <style>
