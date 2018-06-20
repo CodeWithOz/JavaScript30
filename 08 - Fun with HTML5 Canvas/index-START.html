@@ -24,6 +24,8 @@
   let isDrawing = false;
   let lastX = 0;
   let lastY = 0;
+  let hue = 0;
+  let direction = true;
 
   canvas.addEventListener('mousedown', event => {
     isDrawing = true;
@@ -36,6 +38,9 @@
   function draw(event) {
     // exit if this is not a drawing motion
     if (!isDrawing) return;
+
+    // set initial line color
+    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
     ctx.beginPath();
     // start from
     ctx.moveTo(lastX, lastY);
@@ -45,6 +50,21 @@
 
     // update mouse's last position
     [lastX, lastY] = [event.offsetX, event.offsetY];
+
+    // increment color hue
+    hue++;
+    // reset hue if it goes past 360
+    hue = hue >= 360 ? 0 : hue;
+
+    // modulate line width
+    if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+      direction = !direction;
+    }
+    if (direction) {
+      ctx.lineWidth++;
+    } else {
+      ctx.lineWidth--;
+    }
   }
 </script>
 
