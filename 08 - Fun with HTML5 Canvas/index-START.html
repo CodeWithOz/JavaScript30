@@ -30,7 +30,8 @@
   canvas.addEventListener('mousemove', draw);
 
   function draw(event) {
-    
+    // exit if this is not a drawing motion
+    if (!isDrawing) return;
   }
 </script>
 
