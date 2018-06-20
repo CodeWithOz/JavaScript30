@@ -9,8 +9,12 @@
 <script>
   const canvas = document.querySelector('#draw');
   const ctx = canvas.getContext('2d');
+
+  // set canvas to fill browser window
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+
+  // set initial line style and color
   ctx.strokeStyle = '#BADA55';
   ctx.lineJoin = 'round';
   ctx.lineCap = 'round';
