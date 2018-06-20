@@ -18,6 +18,11 @@
   ctx.strokeStyle = '#BADA55';
   ctx.lineJoin = 'round';
   ctx.lineCap = 'round';
+
+  // set flags to track pointer location and drawing status
+  let isDrawing = false;
+  let lastX = 0;
+  let lastY = 0;
 </script>
 
 <style>
