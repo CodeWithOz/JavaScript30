@@ -24,7 +24,10 @@
   let lastX = 0;
   let lastY = 0;
 
-  canvas.addEventListener('mousedown', () => isDrawing = true);
+  canvas.addEventListener('mousedown', event => {
+    isDrawing = true;
+    [lastX, lastY] = [event.offsetX, event.offsetY];
+  });
   canvas.addEventListener('mouseup', () => isDrawing = false);
   canvas.addEventListener('mouseleave', () => isDrawing = false);
   canvas.addEventListener('mousemove', draw);
@@ -32,6 +35,15 @@
   function draw(event) {
     // exit if this is not a drawing motion
     if (!isDrawing) return;
+    ctx.beginPath();
+    // start from
+    ctx.moveTo(lastX, lastY);
+    // go to
+    ctx.lineTo(event.offsetX, event.offsetY);
+    ctx.stroke();
+
+    // update mouse's last position
+    [lastX, lastY] = [event.offsetX, event.offsetY];
   }
 </script>
 
