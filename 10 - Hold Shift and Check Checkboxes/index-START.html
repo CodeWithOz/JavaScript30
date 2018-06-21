@@ -99,6 +99,14 @@
   </div>
 
 <script>
+  // set a flag that gets toggled when shift key is pressed and released
+  let pressing = false;
+  window.addEventListener('keydown', event => {
+    pressing = event.key.toLowerCase() === 'shift' ? true : false;
+  });
+  window.addEventListener('keyup', event => {
+    pressing = event.key.toLowerCase() === 'shift' ? false : true;
+  });
 </script>
 </body>
 </html>
