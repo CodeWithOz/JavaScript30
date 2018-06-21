@@ -107,6 +107,22 @@
   window.addEventListener('keyup', event => {
     pressing = event.key.toLowerCase() === 'shift' ? false : true;
   });
+
+  const inputs = [...document.querySelectorAll('input')];
+  inputs.forEach((input, index) => input.addEventListener('change', event => {
+    // do nothing if shift is not pressed
+    if (!pressing) return;
+
+    // get all previous inputs
+    const prevInputs = [...document.querySelectorAll(`div.item:nth-child(-n+${index}) input`)];
+
+    // looping from the rear, check each one until the first checked one
+    // is encountered
+    for (let counter = prevInputs.length - 1; counter >= 0; counter--) {
+      if (!prevInputs[counter].checked) prevInputs[counter].checked = true;
+      else break;
+    }
+  }));
 </script>
 </body>
 </html>
