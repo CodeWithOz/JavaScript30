@@ -65,3 +65,11 @@ volumeSlider.addEventListener('mousemove', event => {
   // change the value
   handleVolumeChange(event);
 });
+
+// skip forward or backward
+const skipBtns = [...document.querySelectorAll('[data-skip]')];
+skipBtns.forEach(btn => {
+  btn.addEventListener('click', event => {
+    video.currentTime += Number(btn.dataset.skip);
+  });
+});
