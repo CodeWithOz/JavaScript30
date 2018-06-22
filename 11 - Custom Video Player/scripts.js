@@ -5,5 +5,17 @@ const video = document.querySelector('.player__video');
 const playBtn = document.querySelector('.toggle');
 playBtn.addEventListener(
   'click',
-  () => video.paused ? video.play() : video.pause()
+  () => {
+    if (video.paused) {
+      // start playing
+      video.play();
+      // change play icon to pause
+      playBtn.innerHTML = '&#10074;&#10074;';
+    } else {
+      // start playing
+      video.pause();
+      // change play icon to pause
+      playBtn.innerHTML = '►';
+    }
+  }
 );
