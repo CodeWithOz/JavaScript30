@@ -19,3 +19,14 @@ function handlePlayPause(event) {
 
 // play/pause video when video area is clicked
 video.addEventListener('click', handlePlayPause);
+
+// get playback rate slider
+const playbackRateSlider = document.querySelector('[name="playbackRate"]');
+playbackRateSlider.addEventListener('change', handleRateChange);
+
+function handleRateChange(event) {
+  // get the current value of the slider
+  const { value } = event.target;
+  // assign that value to the video element
+  video.playbackRate = value;
+}
