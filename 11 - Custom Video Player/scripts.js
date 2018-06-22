@@ -30,3 +30,15 @@ function handleRateChange(event) {
   // assign that value to the video element
   video.playbackRate = value;
 }
+
+// change plaback rate with click and drag
+let dragging = false;
+playbackRateSlider.addEventListener('mousedown', () => dragging = true);
+playbackRateSlider.addEventListener('mouseup', () => dragging = false);
+playbackRateSlider.addEventListener('mousemove', event => {
+  // abort if mouse is not down
+  if (!dragging) return;
+
+  // change the value
+  handleRateChange(event);
+});
