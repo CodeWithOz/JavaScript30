@@ -32,13 +32,36 @@ function handleRateChange(event) {
 }
 
 // change plaback rate with click and drag
-let dragging = false;
-playbackRateSlider.addEventListener('mousedown', () => dragging = true);
-playbackRateSlider.addEventListener('mouseup', () => dragging = false);
+let rateDragging = false;
+playbackRateSlider.addEventListener('mousedown', () => rateDragging = true);
+playbackRateSlider.addEventListener('mouseup', () => rateDragging = false);
 playbackRateSlider.addEventListener('mousemove', event => {
   // abort if mouse is not down
-  if (!dragging) return;
+  if (!rateDragging) return;
 
   // change the value
   handleRateChange(event);
+});
+
+// adjust volume with its slider
+const volumeSlider = document.querySelector('[name="volume"]');
+volumeSlider.addEventListener('change', handleVolumeChange);
+
+function handleVolumeChange(event) {
+  // get the current value of the slider
+  const { value } = event.target;
+  // assign that value to the video element
+  video.volume = value;
+}
+
+// change volume with click and drag
+let volumeDragging = false;
+volumeSlider.addEventListener('mousedown', () => volumeDragging = true);
+volumeSlider.addEventListener('mouseup', () => volumeDragging = false);
+volumeSlider.addEventListener('mousemove', event => {
+  // abort if mouse is not down
+  if (!volumeDragging) return;
+
+  // change the value
+  handleVolumeChange(event);
 });
