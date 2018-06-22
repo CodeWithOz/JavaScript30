@@ -5,7 +5,7 @@ const video = document.querySelector('.player__video');
 const playBtn = document.querySelector('.toggle');
 playBtn.addEventListener('click', handlePlayPause);
 
-const handlePlayPause = event => {
+function handlePlayPause(event) {
   if (video.paused) {
     video.play();
     // change play icon to pause
