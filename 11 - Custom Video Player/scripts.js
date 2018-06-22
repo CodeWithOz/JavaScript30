@@ -16,3 +16,6 @@ function handlePlayPause(event) {
     playBtn.innerHTML = '►';
   }
 };
+
+// play/pause video when video area is clicked
+video.addEventListener('click', handlePlayPause);
