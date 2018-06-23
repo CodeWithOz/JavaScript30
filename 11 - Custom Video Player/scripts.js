@@ -73,3 +73,18 @@ skipBtns.forEach(btn => {
     video.currentTime += Number(btn.dataset.skip);
   });
 });
+
+const fullSeekerWidth = document.querySelector('.progress');
+const currentSeekerPos = document.querySelector('.progress__filled');
+
+// initialize seeker after video has loaded
+video.addEventListener('durationchange', handleSeekerProgress);
+
+function handleSeekerProgress(event) {
+  const { currentTime, duration } = event.target;
+  const timeFraction = currentTime / duration;
+  currentSeekerPos.style.flexBasis = `${timeFraction * fullSeekerWidth.offsetWidth}px`;
+}
+
+// connect seeker to elapsed time
+video.addEventListener('timeupdate', handleSeekerProgress);
