@@ -6,11 +6,7 @@ const playBtn = document.querySelector('.toggle');
 playBtn.addEventListener('click', handlePlayPause);
 
 function handlePlayPause(event) {
-  if (video.paused) {
-    video.play();
-  } else {
-    video.pause();
-  }
+  video[video.paused ? 'play' : 'pause']();
 };
 
 // play/pause video when video area is clicked
