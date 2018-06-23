@@ -32,12 +32,12 @@ function handleRateChange(event) {
 }
 
 // change plaback rate with click and drag
-let rateDragging = false;
-playbackRateSlider.addEventListener('mousedown', () => rateDragging = true);
-playbackRateSlider.addEventListener('mouseup', () => rateDragging = false);
+let draggingRate = false;
+playbackRateSlider.addEventListener('mousedown', () => draggingRate = true);
+playbackRateSlider.addEventListener('mouseup', () => draggingRate = false);
 playbackRateSlider.addEventListener('mousemove', event => {
   // abort if mouse is not down
-  if (!rateDragging) return;
+  if (!draggingRate) return;
 
   // change the value
   handleRateChange(event);
@@ -55,12 +55,12 @@ function handleVolumeChange(event) {
 }
 
 // change volume with click and drag
-let volumeDragging = false;
-volumeSlider.addEventListener('mousedown', () => volumeDragging = true);
-volumeSlider.addEventListener('mouseup', () => volumeDragging = false);
+let draggingVolume = false;
+volumeSlider.addEventListener('mousedown', () => draggingVolume = true);
+volumeSlider.addEventListener('mouseup', () => draggingVolume = false);
 volumeSlider.addEventListener('mousemove', event => {
   // abort if mouse is not down
-  if (!volumeDragging) return;
+  if (!draggingVolume) return;
 
   // change the value
   handleVolumeChange(event);
@@ -77,14 +77,37 @@ skipBtns.forEach(btn => {
 const fullSeekerWidth = document.querySelector('.progress');
 const currentSeekerPos = document.querySelector('.progress__filled');
 
+let duration;
+
 // initialize seeker after video has loaded
 video.addEventListener('durationchange', handleSeekerProgress);
 
 function handleSeekerProgress(event) {
-  const { currentTime, duration } = event.target;
+  const { currentTime } = event.target;
+  duration = event.target.duration;
   const timeFraction = currentTime / duration;
   currentSeekerPos.style.flexBasis = `${timeFraction * fullSeekerWidth.offsetWidth}px`;
 }
 
 // connect seeker to elapsed time
 video.addEventListener('timeupdate', handleSeekerProgress);
+
+// change time with seeker position
+// essentially, connect seeker position to click and drag
+let draggingSeeker = false;
+fullSeekerWidth.addEventListener('mousedown', () => draggingSeeker = true);
+fullSeekerWidth.addEventListener('mouseup', () => draggingSeeker = false);
+fullSeekerWidth.addEventListener('mousemove', event => {
+  // abort if mouse is not down
+  if (!draggingSeeker) return;
+
+  // get the current horizontal position of the mouse
+  const { offsetX } = event;
+
+  // assign that value to the seeker
+  currentSeekerPos.style.flexBasis = `${offsetX}px`;
+
+  // set currentTime based on the new seeker position
+  const seekFraction = offsetX / fullSeekerWidth.offsetWidth;
+  video.currentTime = seekFraction * duration;
+});
