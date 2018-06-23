@@ -8,17 +8,18 @@ playBtn.addEventListener('click', handlePlayPause);
 function handlePlayPause(event) {
   if (video.paused) {
     video.play();
-    // change play icon to pause
-    playBtn.innerHTML = '&#10074;&#10074;';
   } else {
     video.pause();
-    // change pause icon to play
-    playBtn.innerHTML = '►';
   }
 };
 
 // play/pause video when video area is clicked
 video.addEventListener('click', handlePlayPause);
+
+// change play/pause icon when video is played/paused
+// this ensures that the icon changes no matter what pauses/plays the video
+video.addEventListener('play', () => playBtn.innerHTML = '&#10074;&#10074;');
+video.addEventListener('pause', () => playBtn.innerHTML = '►');
 
 // get playback rate slider
 const playbackRateSlider = document.querySelector('[name="playbackRate"]');
