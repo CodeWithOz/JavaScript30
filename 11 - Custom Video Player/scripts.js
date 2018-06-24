@@ -107,8 +107,13 @@ video.addEventListener('durationchange', handleSeekerProgress);
 function handleSeekerProgress(event) {
   const { currentTime } = event.target;
   duration = event.target.duration;
-  const timeFraction = currentTime / duration;
-  currentSeekerPos.style.flexBasis = `${timeFraction * fullSeekerWidth.offsetWidth}px`;
+  // const timeFraction = currentTime / duration;
+  // currentSeekerPos.style.flexBasis = `${timeFraction * fullSeekerWidth.offsetWidth}px`;
+
+  // use a fraction instead of pixel values to remain consistent
+  // with the initial value in the stylesheet
+  const timePercent = (currentTime / duration) * 100;
+  currentSeekerPos.style.flexBasis = `${timePercent}%`;
 }
 
 // connect seeker to elapsed time
