@@ -128,6 +128,11 @@ fullSeekerWidth.addEventListener('mousemove', event => {
   // abort if mouse is not down
   if (!draggingSeeker) return;
 
+  // update seeker position with mouse position
+  updateSeekerPosition(event);
+});
+
+function updateSeekerPosition(event) {
   // get the current horizontal position of the mouse
   const { offsetX } = event;
 
@@ -137,4 +142,7 @@ fullSeekerWidth.addEventListener('mousemove', event => {
   // set currentTime based on the new seeker position
   const seekFraction = offsetX / fullSeekerWidth.offsetWidth;
   video.currentTime = seekFraction * duration;
-});
+}
+
+// update seeker when mouse is clicked on a spot
+fullSeekerWidth.addEventListener('click', updateSeekerPosition);
