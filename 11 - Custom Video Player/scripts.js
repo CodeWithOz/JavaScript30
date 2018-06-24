@@ -124,13 +124,17 @@ video.addEventListener('timeupdate', handleSeekerProgress);
 let draggingSeeker = false;
 fullSeekerWidth.addEventListener('mousedown', () => draggingSeeker = true);
 fullSeekerWidth.addEventListener('mouseup', () => draggingSeeker = false);
-fullSeekerWidth.addEventListener('mousemove', event => {
-  // abort if mouse is not down
-  if (!draggingSeeker) return;
+// fullSeekerWidth.addEventListener('mousemove', event => {
+//   // abort if mouse is not down
+//   if (!draggingSeeker) return;
+//
+//   // update seeker position with mouse position
+//   updateSeekerPosition(event);
+// });
 
-  // update seeker position with mouse position
-  updateSeekerPosition(event);
-});
+// use short-circuiting of logical operators to condense the above
+// `mousemove` handler
+fullSeekerWidth.addEventListener('mousemove', event => draggingSeeker && updateSeekerPosition(event));
 
 function updateSeekerPosition(event) {
   // get the current horizontal position of the mouse
