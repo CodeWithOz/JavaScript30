@@ -17,51 +17,76 @@ video.addEventListener('click', handlePlayPause);
 video.addEventListener('play', () => playBtn.innerHTML = '&#10074;&#10074;');
 video.addEventListener('pause', () => playBtn.innerHTML = '►');
 
-// get playback rate slider
-const playbackRateSlider = document.querySelector('[name="playbackRate"]');
-playbackRateSlider.addEventListener('change', handleRateChange);
+// // get playback rate slider
+// const playbackRateSlider = document.querySelector('[name="playbackRate"]');
+// playbackRateSlider.addEventListener('change', handleRateChange);
+//
+// function handleRateChange(event) {
+//   // get the current value of the slider
+//   const { value } = event.target;
+//   // assign that value to the video element
+//   video.playbackRate = value;
+// }
+//
+// // change plaback rate with click and drag
+// let draggingRate = false;
+// playbackRateSlider.addEventListener('mousedown', () => draggingRate = true);
+// playbackRateSlider.addEventListener('mouseup', () => draggingRate = false);
+// playbackRateSlider.addEventListener('mousemove', event => {
+//   // abort if mouse is not down
+//   if (!draggingRate) return;
+//
+//   // change the value
+//   handleRateChange(event);
+// });
+//
+// // adjust volume with its slider
+// const volumeSlider = document.querySelector('[name="volume"]');
+// volumeSlider.addEventListener('change', handleVolumeChange);
+//
+// function handleVolumeChange(event) {
+//   // get the current value of the slider
+//   const { value } = event.target;
+//   // assign that value to the video element
+//   video.volume = value;
+// }
+//
+// // change volume with click and drag
+// let draggingVolume = false;
+// volumeSlider.addEventListener('mousedown', () => draggingVolume = true);
+// volumeSlider.addEventListener('mouseup', () => draggingVolume = false);
+// volumeSlider.addEventListener('mousemove', event => {
+//   // abort if mouse is not down
+//   if (!draggingVolume) return;
+//
+//   // change the value
+//   handleVolumeChange(event);
+// });
 
-function handleRateChange(event) {
-  // get the current value of the slider
-  const { value } = event.target;
-  // assign that value to the video element
-  video.playbackRate = value;
-}
+// combine volume and playbackRate slide handlers
+const draggingObj = {
+  volume: false,
+  playbackRate: false
+};
 
-// change plaback rate with click and drag
-let draggingRate = false;
-playbackRateSlider.addEventListener('mousedown', () => draggingRate = true);
-playbackRateSlider.addEventListener('mouseup', () => draggingRate = false);
-playbackRateSlider.addEventListener('mousemove', event => {
-  // abort if mouse is not down
-  if (!draggingRate) return;
+const ranges = document.querySelectorAll('.player__slider');
+ranges.forEach(range => {
+  range.addEventListener('mousedown', event => draggingObj[event.target.name] = true);
+  range.addEventListener('mouseup', event => draggingObj[event.target.name] = false);
+  range.addEventListener('change', handleSliderMove);
+  range.addEventListener('mousemove', event => {
+    // abort if mouse is not down
+    if (!draggingObj[event.target.name]) return;
 
-  // change the value
-  handleRateChange(event);
+    // change the value
+    handleSliderMove(event);
+  });
 });
 
-// adjust volume with its slider
-const volumeSlider = document.querySelector('[name="volume"]');
-volumeSlider.addEventListener('change', handleVolumeChange);
-
-function handleVolumeChange(event) {
-  // get the current value of the slider
-  const { value } = event.target;
-  // assign that value to the video element
-  video.volume = value;
+function handleSliderMove(event) {
+  // assign the current value of the slider to the video element
+  video[event.target.name] = event.target.value;
 }
-
-// change volume with click and drag
-let draggingVolume = false;
-volumeSlider.addEventListener('mousedown', () => draggingVolume = true);
-volumeSlider.addEventListener('mouseup', () => draggingVolume = false);
-volumeSlider.addEventListener('mousemove', event => {
-  // abort if mouse is not down
-  if (!draggingVolume) return;
-
-  // change the value
-  handleVolumeChange(event);
-});
 
 // skip forward or backward
 const skipBtns = [...document.querySelectorAll('[data-skip]')];
