@@ -150,3 +150,47 @@ function updateSeekerPosition(event) {
 
 // update seeker when mouse is clicked on a spot
 fullSeekerWidth.addEventListener('click', updateSeekerPosition);
+
+// make video fullscreen
+const fullscreenEnabled = document.fullscreenEnabled ||
+	document.webkitFullscreenEnabled ||
+	document.mozFullScreenEnabled ||
+	document.msFullscreenEnabled;
+
+const fullscreenBtn = document.querySelector('[name="fullscreen"]');
+const playerDiv = document.querySelector('.player');
+fullscreenBtn.addEventListener('click', event => {
+  if (!fullscreenEnabled) alert('Fullscreen mode is not available on this browser');
+
+  // check if document is fullscreen
+  const fullscreen = document.fullscreenElement ||
+  	document.webkitFullscreenElement ||
+  	document.mozFullScreenElement ||
+  	document.msFullscreenElement;
+
+  if (fullscreen) {
+    // exit fullscreen
+    if (document.exitFullscreen) {
+    	document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+    	document.webkitExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+    	document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+    	document.msExitFullscreen();
+    }
+  } else {
+    // go full-screen
+    // playerDiv is used here to carry over the custom controls
+    if (playerDiv.requestFullscreen) {
+      playerDiv.requestFullscreen();
+    } else if (playerDiv.webkitRequestFullscreen) {
+      playerDiv.webkitRequestFullscreen();
+    } else if (playerDiv.mozRequestFullScreen) {
+      playerDiv.mozRequestFullScreen();
+    } else if (playerDiv.msRequestFullscreen) {
+      playerDiv.msRequestFullscreen();
+    }
+  }
+});
+// change icon when fullscreen status changes
