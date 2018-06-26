@@ -163,10 +163,7 @@ fullscreenBtn.addEventListener('click', event => {
   if (!fullscreenEnabled) alert('Fullscreen mode is not available on this browser');
 
   // check if document is fullscreen
-  const fullscreen = document.fullscreenElement ||
-  	document.webkitFullscreenElement ||
-  	document.mozFullScreenElement ||
-  	document.msFullscreenElement;
+  const fullscreen = getFullscreenStatus();
 
   if (fullscreen) {
     // exit fullscreen
@@ -193,4 +190,22 @@ fullscreenBtn.addEventListener('click', event => {
     }
   }
 });
+
+function getFullscreenStatus() {
+  return document.fullscreenElement ||
+  	document.webkitFullscreenElement ||
+  	document.mozFullScreenElement ||
+  	document.msFullscreenElement;
+}
+
 // change icon when fullscreen status changes
+document.addEventListener("fullscreenchange", FShandler);
+
+function FShandler(event) {
+  const fullscreen = getFullscreenStatus();
+  fullscreenBtn.innerHTML = fullscreen ? '♦♦' : '♥♥';
+}
+
+document.addEventListener("webkitfullscreenchange", FShandler);
+document.addEventListener("mozfullscreenchange", FShandler);
+document.addEventListener("MSFullscreenChange", FShandler);
