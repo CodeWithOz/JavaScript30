@@ -209,3 +209,14 @@ function FShandler(event) {
 document.addEventListener("webkitfullscreenchange", FShandler);
 document.addEventListener("mozfullscreenchange", FShandler);
 document.addEventListener("MSFullscreenChange", FShandler);
+
+// inform user if fullscreen didn't work
+document.addEventListener("fullscreenerror", FSerrorhandler);
+
+function FSerrorhandler() {
+  alert('Fullscreen mode could not be activated');
+}
+
+document.addEventListener("webkitfullscreenerror", FSerrorhandler);
+document.addEventListener("mozfullscreenerror", FSerrorhandler);
+document.addEventListener("MSFullscreenError", FSerrorhandler);
