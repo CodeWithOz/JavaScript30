@@ -58,6 +58,11 @@
       };
     }
 
+    function handleScroll(event) {
+      console.log('scrolling');
+    }
+    var handleScroll = debounce(handleScroll);
+    window.onscroll = handleScroll;
   </script>
 
   <style>
