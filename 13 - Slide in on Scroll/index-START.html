@@ -57,12 +57,15 @@
         if (callNow) func.apply(context, args);
       };
     }
+    // get all images in the document
+    const sliderImages = document.querySelectorAll('.slide-in');
+    console.log(images);
 
-    function handleScroll(event) {
-      console.log('scrolling');
+    function checkSlide(event) {
+      console.log(event);
     }
-    var handleScroll = debounce(handleScroll);
-    window.onscroll = handleScroll;
+    var checkSlide = debounce(checkSlide);
+    window.onscroll = checkSlide;
   </script>
 
   <style>
